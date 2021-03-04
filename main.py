@@ -15,16 +15,18 @@ fundo = GameImage("Assets/torcida2.jpg")
 velX = 250
 velY = 0
 while True:
+
     jogador1.y -= velY * janela.delta_time()
     if(jogador1.y > janela.height - jogador1.height - 50):
         jump1 = True
+        jogador1.y += velY * janela.delta_time()
     
     else:    
-        velY-= 600 * janela.delta_time()
+        velY-= 1600 * janela.delta_time()
     print(velY)
     if teclado.key_pressed("W"):
         if(jump1):
-            velY = 250
+            velY = 1000
         jump1 = False
 
     if teclado.key_pressed("A") and jogador1.x > 0:
