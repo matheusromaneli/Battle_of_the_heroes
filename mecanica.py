@@ -2,13 +2,14 @@ from PPlay.window import *
 from PPlay.sprite import *
 from PPlay.gameimage import *
 from PPlay.collision import *
+from PPlay.animation import *
 
 class Mecanica():
 
     @classmethod
     def controles(self,jogador1, janela, velX, velY, teclado,jump1):
         
-        if jogador1.y > janela.height - jogador1.height - 50:
+        if jogador1.y > janela.height - jogador1.height - 30:
             jump1 = True  
 
         else:
@@ -25,6 +26,7 @@ class Mecanica():
         if teclado.key_pressed("S"):
 
             velY-= 1600 * janela.delta_time()
+        
 
         if teclado.key_pressed("A") and jogador1.x > 0:
 
@@ -33,13 +35,15 @@ class Mecanica():
         if teclado.key_pressed("D") and jogador1.x < janela.width - jogador1.width:
 
             jogador1.x += velX * janela.delta_time()
+            jogador1.play()
+            jogador1.update()
 
         return velX , velY , jump1
 
     @classmethod
     def controles2(self,jogador1, janela, velX, velY, teclado,jump1):
         
-        if jogador1.y > janela.height - jogador1.height - 50:
+        if jogador1.y > janela.height - jogador1.height - 30:
             jump1 = True  
 
         else:
@@ -64,5 +68,7 @@ class Mecanica():
         if teclado.key_pressed("RIGHT") and jogador1.x < janela.width - jogador1.width:
 
             jogador1.x += velX * janela.delta_time()
+            jogador1.play()
+            jogador1.update()
 
         return velX , velY , jump1
