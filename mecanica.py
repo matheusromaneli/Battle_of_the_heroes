@@ -18,11 +18,10 @@ def set_animation(player,teclado):
 
         if(not(player.is_playing())):
             player = Sprite("Assets/Gladiator-corrida.png",8)
-            player.set_initial_frame(7)
             player.play()
     else:
         player.stop()
-        
+
     player.set_position(x,y)
     player.set_total_duration(1000)
 
@@ -33,16 +32,19 @@ def set_animation2(player,teclado):
     y = player.y
 
     if(teclado.key_pressed("LEFT")):
+
         if(not(player.is_playing())):
             player = Sprite("Assets/Gladiador2-corrida-esquerda.png",8)
             player.play()
+
     elif teclado.key_pressed("RIGHT"):
+
         if(not(player.is_playing())):
             player = Sprite("Assets/Gladiador2-corrida.png",8)
-            player.set_initial_frame(7)
             player.play()
     else:
         player.stop()
+
     player.set_position(x,y)
     player.set_total_duration(1000)
 
@@ -78,8 +80,7 @@ class Mecanica():
         if teclado.key_pressed("A") and jogador1.x > 0:
             
             jogador1.x -= velX * janela.delta_time()
-            jogador1.play()
-
+            jogador1.update()
         if teclado.key_pressed("D") and jogador1.x < janela.width - jogador1.width:
 
             jogador1.x += velX * janela.delta_time()
@@ -101,6 +102,7 @@ class Mecanica():
             velY-= 1600 * janela.delta_time()
             
         if teclado.key_pressed("UP"):
+
             if(jump1):
                 velY = 1000
                 jogador1.y -= velY * janela.delta_time()
@@ -111,10 +113,12 @@ class Mecanica():
             velY-= 1600 * janela.delta_time()
 
         if teclado.key_pressed("LEFT") and jogador1.x > 0:
+
             jogador1.x -= velX * janela.delta_time()
             jogador1.update()
 
         if teclado.key_pressed("RIGHT") and jogador1.x < janela.width - jogador1.width:
+
             jogador1.x += velX * janela.delta_time()
             jogador1.update()
 
