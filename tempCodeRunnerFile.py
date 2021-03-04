@@ -1,1 +1,0 @@
-jogador1.draw()
