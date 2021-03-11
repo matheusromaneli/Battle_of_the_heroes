@@ -10,11 +10,11 @@ class Main():
         janela = Window(1280,720)
         janela.set_title("Battle of the heroes")
         teclado = Window.get_keyboard()
-        jogador1 = {'direita' : Sprite("Assets/Gladiator-corrida.png", 8), 'esquerda' :Sprite("Assets/Gladiator-corrida-esquerda.png", 8), 'parado' :Sprite("Assets/Gladiator-parado.png",5)}
+        jogador1 = {'direita' : Sprite("Assets/Player1/Corrida-direita.png", 8), 'esquerda' :Sprite("Assets/Player1/Corrida-esquerda.png", 8), 'parado' :Sprite("Assets/Player1/Parado.png",5)}
         for i in jogador1:
             jogador1[i].set_position(20,janela.height - jogador1[i].height - 30)
             jogador1[i].set_total_duration(1000)
-        jogador2 = {'direita' : Sprite("Assets/Gladiator2-corrida.png", 8), 'esquerda' :Sprite("Assets/Gladiator2-corrida-esquerda.png", 8), 'parado' :Sprite("Assets/Gladiador-parado-vermelho.png",5)}
+        jogador2 = {'direita' : Sprite("Assets/Player2/Corrida-direita.png", 8), 'esquerda' :Sprite("Assets/Player2/Corrida-esquerda.png", 8), 'parado' :Sprite("Assets/Player2/Parado.png",5)}
         for i in jogador2:
             jogador2[i].set_position(janela.width-jogador2[i].width-20,janela.height - jogador2[i].height - 30)
             jogador2[i].set_total_duration(1000)
