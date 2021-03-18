@@ -25,13 +25,21 @@ class Main():
         velY = 0
         velX2= 450
         velY2 = 0
+        plataforma = GameImage("Assets/plataformaPequena.png")
+        plataforma2 = GameImage("Assets/plataformaMedia.png")
+        plataforma3 = GameImage("Assets/plataformaPequena.png")
+        plataforma.set_position(50, janela.height - plataforma.height - 40)
+        plataforma2.set_position(640 - (plataforma2.width/2),janela.height - plataforma2.height - 40)
+        plataforma3.set_position(janela.width - 410, janela.height - plataforma3.height - 40)
         while True:
 
             velY ,jump1 = Jogador.controles(jogador1, janela, velX, velY, teclado, jump1, "w","s","a","d")
             velY2 ,jump2 = Jogador.controles(jogador2, janela, velX2, velY2, teclado, jump2, "up","down","left","right")
 
-            
             fundo.draw()
+            plataforma.draw()
+            plataforma2.draw()
+            plataforma3.draw()
             for i in jogador1:
                 jogador1[i].draw()
                 jogador1[i].update()

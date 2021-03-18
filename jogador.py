@@ -28,7 +28,7 @@ class Jogador():
         else:
             for i in jogador:
                 jogador[i].y -= velY * janela.delta_time()   
-            velY-= 1600 * janela.delta_time()
+            velY-= 2000 * janela.delta_time()
 
         ##Controles
         if teclado.key_pressed(a):
