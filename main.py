@@ -7,43 +7,43 @@ from jogador import *
 from PPlay.animation import *
 
 class Main():
-        janela = Window(1280,720)
-        janela.set_title("Battle of the heroes")
-        teclado = Window.get_keyboard()
-        jogador1 = {'direita' : Sprite("Assets/Jogador1/Corrida-direita.png", 8), 'esquerda' :Sprite("Assets/Jogador1/Corrida-esquerda.png", 8), 'parado' :Sprite("Assets/Jogador1/Parado.png",5)}
+    janela = Window(1280,720)
+    janela.set_title("Battle of the heroes")
+    teclado = Window.get_keyboard()
+    jogador1 = {'direita' : Sprite("Assets/Jogador1/corrida-direita1.png", 8), 'esquerda' :Sprite("Assets/Jogador1/corrida-esquerda1.png", 8), 'parado' :Sprite("Assets/Jogador1/parado1.png",5), 'ataque-direita' :Sprite("Assets/Jogador1/Ataque-direita1.png", 7), 'ataque-esquerda' :Sprite("Assets/Jogador1/Ataque-esquerda1.png", 7)}
+    for i in jogador1:
+        jogador1[i].set_position(20,janela.height - jogador1[i].height - 30)
+        jogador1[i].set_total_duration(1000)
+    jogador2 = {'direita' : Sprite("Assets/Jogador2/Corrida-direita.png", 8), 'esquerda' :Sprite("Assets/Jogador2/Corrida-esquerda.png", 8), 'parado' :Sprite("Assets/Jogador2/Parado.png",5), 'ataque-direita' :Sprite("Assets/Jogador2/Ataque-direita.png", 7), 'ataque-esquerda' :Sprite("Assets/Jogador2/Ataque-esquerda.png", 7)}
+    for i in jogador2:
+        jogador2[i].set_position(janela.width-jogador2[i].width-20,janela.height - jogador2[i].height - 30)
+        jogador2[i].set_total_duration(1000)
+    jump1 = True
+    jump2 = True
+    fundo = GameImage("Assets/torcida2.jpg")
+    velX = 450
+    velY = 0
+    velX2= 450
+    velY2 = 0
+    plataforma = GameImage("Assets/plataformaPequena.png")
+    plataforma2 = GameImage("Assets/plataformaMedia.png")
+    plataforma3 = GameImage("Assets/plataformaPequena.png")
+    plataforma.set_position(150, janela.height - plataforma.height- 175)
+    plataforma2.set_position(640 - (plataforma2.width/2),janela.height - plataforma2.height - 325)
+    plataforma3.set_position(janela.width - 320, janela.height - plataforma3.height - 175)
+    while True:
+
+        velY ,jump1 = Jogador.controles(jogador1, janela, velX, velY, teclado, jump1, "w","s","a","d","space", [plataforma , plataforma2 , plataforma3])
+        velY2 ,jump2 = Jogador.controles(jogador2, janela, velX2, velY2, teclado, jump2, "up","down","left","right","enter",[plataforma, plataforma2 , plataforma3])
+
+        fundo.draw()
+        plataforma.draw()
+        plataforma2.draw()
+        plataforma3.draw()
         for i in jogador1:
-            jogador1[i].set_position(20,janela.height - jogador1[i].height - 30)
-            jogador1[i].set_total_duration(1000)
-        jogador2 = {'direita' : Sprite("Assets/Jogador2/Corrida-direita.png", 8), 'esquerda' :Sprite("Assets/Jogador2/Corrida-esquerda.png", 8), 'parado' :Sprite("Assets/Jogador2/Parado.png",5)}
+            jogador1[i].draw()
+            jogador1[i].update()
         for i in jogador2:
-            jogador2[i].set_position(janela.width-jogador2[i].width-20,janela.height - jogador2[i].height - 30)
-            jogador2[i].set_total_duration(1000)
-        jump1 = True
-        jump2 = True
-        fundo = GameImage("Assets/torcida2.jpg")
-        velX = 450
-        velY = 0
-        velX2= 450
-        velY2 = 0
-        plataforma = GameImage("Assets/plataformaPequena.png")
-        plataforma2 = GameImage("Assets/plataformaMedia.png")
-        plataforma3 = GameImage("Assets/plataformaPequena.png")
-        plataforma.set_position(50, janela.height - plataforma.height - 40)
-        plataforma2.set_position(640 - (plataforma2.width/2),janela.height - plataforma2.height - 40)
-        plataforma3.set_position(janela.width - 410, janela.height - plataforma3.height - 40)
-        while True:
-
-            velY ,jump1 = Jogador.controles(jogador1, janela, velX, velY, teclado, jump1, "w","s","a","d")
-            velY2 ,jump2 = Jogador.controles(jogador2, janela, velX2, velY2, teclado, jump2, "up","down","left","right")
-
-            fundo.draw()
-            plataforma.draw()
-            plataforma2.draw()
-            plataforma3.draw()
-            for i in jogador1:
-                jogador1[i].draw()
-                jogador1[i].update()
-            for i in jogador2:
-                jogador2[i].draw()
-                jogador2[i].update()
-            janela.update()
+            jogador2[i].draw()
+            jogador2[i].update()
+        janela.update()
