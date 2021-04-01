@@ -46,7 +46,13 @@ class Jogador():
         self.life = 5
         self.attacking = False
         self.cooldownAtack = 0
-
+        self.invulnerable = False
+        
+    def getcurr_animation(self):
+        for i in self.sprites:
+            if self.sprites[i].drawable:
+                return i
+    
     def controles(self, janela, teclado, plataformas, pe):
         posInicial = self.sprites['direita'].x
         ##Física do pulo
@@ -113,16 +119,15 @@ class Jogador():
                 self.attacking = True           
                 attack_animation(self.sprites,self.last)
                 self.cooldownAtack = janela.time_elapsed()
-                print(self.attacking)
         if self.sprites['ataque-direita'].get_curr_frame() == self.sprites['ataque-direita'].get_final_frame()-1:
             self.attacking=False
             self.sprites['ataque-direita'].stop()
-            print(self.attacking)
         if self.sprites['ataque-esquerda'].get_curr_frame() == self.sprites['ataque-esquerda'].get_final_frame()-1:
             self.attacking=False
             self.sprites['ataque-esquerda'].stop()
-            print(self.attacking)
         return
 
-    def take_damange():
-        self.life -= 1
+    def take_damange(self):
+        if not(self.invulnerable):
+            self.life -= 1
+        self.invulnerable = True
