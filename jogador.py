@@ -3,6 +3,7 @@ from PPlay.sprite import *
 from PPlay.gameimage import *
 from PPlay.collision import *
 from PPlay.animation import *
+
 def set_animation(direita,esquerda,parado,jogador):
     for i in jogador:
         jogador[i].hide() 
