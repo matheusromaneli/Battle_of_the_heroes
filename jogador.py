@@ -4,91 +4,125 @@ from PPlay.gameimage import *
 from PPlay.collision import *
 from PPlay.animation import *
 
-def set_animation(direita,esquerda,ataqueDireita, ataqueEsquerda, jogador):
-    for i in jogador:
-        jogador[i].hide() 
-    if direita:
-        jogador['direita'].unhide()
-    elif esquerda:
-        jogador['esquerda'].unhide()
-    elif ataqueDireita:
-        jogador['ataque-direita'].unhide()
-    elif ataqueEsquerda:
-        jogador['ataque-esquerda'].unhide()
-    else:
-        jogador['parado'].unhide()
+def set_animation(direita, esquerda, last, jogador, attacking):
+    if not(attacking):
+        for i in jogador:
+            jogador[i].hide() 
+        if direita:
+            jogador['direita'].unhide()
+        elif esquerda:
+            jogador['esquerda'].unhide()
+        elif last == 'esquerda':
+            jogador['parado-esquerda'].unhide()
+        else:
+            jogador['parado-direita'].unhide()
+
+def attack_animation(sprites, side):
+
+        for i in sprites:
+            sprites[i].hide()
+
+        if side =='direita':
+            sprites['ataque-direita'].unhide()
+            sprites['ataque-direita'].play()
+            
+        else:
+            sprites['ataque-esquerda'].unhide()
+            sprites['ataque-esquerda'].play()
 
 class Jogador():
 
-    @classmethod
-    def controles(self,jogador, janela, velX, velY, teclado, jump, a, b, c, d, e, plataformas, pe, velpeX, velpeY):
-        posInicial = jogador['direita'].x
-        last = ''
-        ##Física do pulo
-        if jogador['direita'].y > janela.height - jogador['direita'].height - 30:
+    def __init__(self, sprites, velX, velY, jump, cima, baixo, esquerda,direita, ataque):
+        self.sprites = sprites
+        self.velX = velX
+        self.velY = velY
+        self.jump = jump
+        self.controleCima = cima
+        self.controleBaixo = baixo
+        self.controleEsquerda = esquerda
+        self.controleDireita = direita
+        self.controleAtaque = ataque
+        self.last = ''
+        self.life = 5
+        self.attacking = False
+        self.cooldownAtack = 0
 
-            jump = True  
+    def controles(self, janela, teclado, plataformas, pe):
+        posInicial = self.sprites['direita'].x
+        ##Física do pulo
+        if self.sprites['direita'].y > janela.height - self.sprites['direita'].height - 30:
+
+            self.jump = True  
 
         else:
-            for i in jogador:
-                jogador[i].y -= velY * janela.delta_time()
-                pe.y -= velpeY * janela.delta_time()
-            velY-= 2000 * janela.delta_time()
-            velpeY -= 400 * janela.delta_time()
+            for i in self.sprites:
+                self.sprites[i].y -= self.velY * janela.delta_time()
+            pe.y -= self.velY * janela.delta_time()
+            self.velY-= 2000 * janela.delta_time()
            
             for plataforma in plataformas:
-                if Collision.collided(pe, plataforma) and velY < 0:   
-                    velY = 0
-                    velpeY = 0
-                    jump = True
+                #para de cair   
+                if (Collision.collided(pe, plataforma) and self.velY < 0) and not(teclado.key_pressed(self.controleBaixo)):
+                    self.velY = 0
+                    self.jump = True
 
         ##Controles
-        if teclado.key_pressed(a):
+        #CIMA
+        if teclado.key_pressed(self.controleCima):
 
-            if(jump):
+            if(self.jump):
 
-                velY = 1000
-                velpeY = 200
-                for i in jogador:
-                    jogador[i].y -= velY * janela.delta_time()
-                    pe.y -= velpeY * janela.delta_time()
+                self.velY = 1000
+                for i in self.sprites:
+                    self.sprites[i].y -= self.velY * janela.delta_time()
 
-            jump = False
+                pe.y -= self.velY * janela.delta_time()
+            self.jump = False
+        #Baixo
+        if teclado.key_pressed(self.controleBaixo):
+            self.velY-= 2000 * janela.delta_time()
+        #Esquerda    
+        if teclado.key_pressed(self.controleEsquerda) and self.sprites['direita'].x > 0:
+            self.last = 'esquerda'
 
-        if teclado.key_pressed(b):
-            velY-= 2000 * janela.delta_time()
-            velpeY -= 400 * janela.delta_time()
-            
-        if teclado.key_pressed(c) and jogador['direita'].x > 0:
-            last = 'direita'
-
-            for i in jogador:
-                jogador[i].x -= velX * janela.delta_time()
-                pe.x -= velpeX * janela.delta_time()
+            for i in self.sprites:
+                self.sprites[i].x -= self.velX * janela.delta_time()
     
-            set_animation(0,1,0,0,jogador)
+            pe.x -= self.velX * janela.delta_time()
+            set_animation(0,1,self.last,self.sprites,self.attacking)
 
-            if teclado.key_pressed(e):
-                set_animation(0,0,0,1,jogador)
+        #Direita
+        if teclado.key_pressed(self.controleDireita) and self.sprites['direita'].x < janela.width - self.sprites['direita'].width:
+            self.last = 'direita'
 
-        if teclado.key_pressed(d) and jogador['direita'].x < janela.width - jogador['direita'].width:
-            last = 'esquerda'
+            for i in self.sprites:
+                self.sprites[i].x += self.velX * janela.delta_time()
 
-            for i in jogador:
-                jogador[i].x += velX * janela.delta_time()
-                pe.x += velpeX * janela.delta_time()
+            pe.x += self.velX * janela.delta_time()
+            set_animation(1,0,self.last,self.sprites,self.attacking)
 
-            set_animation(1,0,0,0,jogador)
+        #Parado
+        if self.sprites['direita'].x == posInicial:
 
-            if teclado.key_pressed(e):
-                set_animation(0,0,1,0,jogador)
+            set_animation(0,0,self.last,self.sprites,self.attacking)
+        
+        #Ataque
+        if teclado.key_pressed(self.controleAtaque):
+            
+            if janela.time_elapsed() - self.cooldownAtack > 1000:
+                self.attacking = True           
+                attack_animation(self.sprites,self.last)
+                self.cooldownAtack = janela.time_elapsed()
+                print(self.attacking)
+        if self.sprites['ataque-direita'].get_curr_frame() == self.sprites['ataque-direita'].get_final_frame()-1:
+            self.attacking=False
+            self.sprites['ataque-direita'].stop()
+            print(self.attacking)
+        if self.sprites['ataque-esquerda'].get_curr_frame() == self.sprites['ataque-esquerda'].get_final_frame()-1:
+            self.attacking=False
+            self.sprites['ataque-esquerda'].stop()
+            print(self.attacking)
+        return
 
-        if jogador['direita'].x == posInicial:
-
-            set_animation(0,0,0,0,jogador)
-            if teclado.key_pressed(e):
-                set_animation(0,0,1,0,jogador)
-        # else:
-        #     if teclado.key_pressed(e):
-        #         set_animation(0,0,1,0,jogador)
-        return velY , jump , velpeY
+    def take_damange():
+        self.life -= 1
