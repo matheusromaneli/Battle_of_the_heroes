@@ -69,5 +69,6 @@ class Jogo():
         for i in jogador2:
             jogador2[i].draw()
             jogador2[i].update()
-        
+        pe.draw()
+        chao1.draw()
         janela.update()
