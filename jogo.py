@@ -39,9 +39,9 @@ class Jogo():
     jogador2 = Jogador(sprites2,450,0,True,"up","down","left","right","enter")
 
     plataformas= [GameImage("Assets/chao-plataformaPequena.png"),GameImage("Assets/chao-plataformaMedia.png"),GameImage("Assets/chao-plataformaPequena.png")]
-    plataformas[0].set_position(146,janela.height - 82- 175)
-    plataformas[1].set_position(640 - (408/2),janela.height - 84 - 327)
-    plataformas[2].set_position(janela.width - 320, janela.height - 82- 175)
+    plataformas[0].set_position(146,janela.height - 257)
+    plataformas[1].set_position(640 - (408/2),janela.height - 411)
+    plataformas[2].set_position(janela.width - 320, janela.height - 257)
     
     cont = 0
     fps = 0
