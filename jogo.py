@@ -12,7 +12,7 @@ class Jogo():
     janela.set_title("Battle of the heroes")
     teclado = Window.get_keyboard()
 
-    sprites1 = {'direita' : Sprite("Assets/Jogador1/corrida-direita.png", 8), 'esquerda' :Sprite("Assets/Jogador1/corrida-esquerda.png", 8), 'parado-direita' :Sprite("Assets/Jogador1/parado-direita.png",5),'parado-esquerda': Sprite("Assets/Jogador1/parado-esquerda.png",5), 'ataque-direita' :Sprite("Assets/Jogador1/ataque-direita.png", 7), 'ataque-esquerda' :Sprite("Assets/Jogador1/ataque-esquerda.png", 7)}
+    sprites1 = {'direita' : Sprite("Assets/Jogador1/Corrida-direita.png", 8), 'esquerda' :Sprite("Assets/Jogador1/Corrida-esquerda.png", 8), 'parado-direita' :Sprite("Assets/Jogador1/parado-direita.png",5),'parado-esquerda': Sprite("Assets/Jogador1/parado-esquerda.png",5), 'ataque-direita' :Sprite("Assets/Jogador1/Ataque-direita.png", 7), 'ataque-esquerda' :Sprite("Assets/Jogador1/ataque-esquerda.png", 7)}
     for i in sprites1:
         sprites1[i].set_position(20,janela.height - sprites1[i].height - 30)
         if i != 'ataque-direita' and i != 'ataque-esquerda':
@@ -20,7 +20,7 @@ class Jogo():
         else:
             sprites1[i].set_total_duration(300)
     
-    sprites2 = {'direita' : Sprite("Assets/Jogador2/Corrida-direita.png", 8), 'esquerda' :Sprite("Assets/Jogador2/Corrida-esquerda.png", 8), 'parado-direita' :Sprite("Assets/Jogador2/parado-direita.png",5),'parado-esquerda': Sprite("Assets/Jogador2/parado-esquerda.png",5), 'ataque-direita' :Sprite("Assets/Jogador2/ataque-direita.png", 7), 'ataque-esquerda' :Sprite("Assets/Jogador2/ataque-esquerda.png", 7)}
+    sprites2 = {'direita' : Sprite("Assets/Jogador2/Corrida-direita.png", 8), 'esquerda' :Sprite("Assets/Jogador2/Corrida-esquerda.png", 8), 'parado-direita' :Sprite("Assets/Jogador2/parado-direita.png",5),'parado-esquerda': Sprite("Assets/Jogador2/parado-esquerda.png",5), 'ataque-direita' :Sprite("Assets/Jogador2/Ataque-direita.png", 7), 'ataque-esquerda' :Sprite("Assets/Jogador2/Ataque-esquerda.png", 7)}
     for i in sprites2:
         sprites2[i].set_position(janela.width-sprites2[i].width-20,janela.height - sprites2[i].height - 30)
         if i != 'ataque-direita' and i != 'ataque-esquerda':
