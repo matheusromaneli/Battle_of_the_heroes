@@ -40,7 +40,7 @@ class Jogo():
 
     plataformas= [GameImage("Assets/chao-plataformaPequena.png"),GameImage("Assets/chao-plataformaMedia.png"),GameImage("Assets/chao-plataformaPequena.png")]
     plataformas[0].set_position(146,janela.height - 257)
-    plataformas[1].set_position(640 - (408/2),janela.height - 411)
+    plataformas[1].set_position(436,janela.height - 411)
     plataformas[2].set_position(janela.width - 320, janela.height - 257)
     
     cont = 0
