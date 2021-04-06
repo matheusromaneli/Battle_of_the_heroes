@@ -33,22 +33,15 @@ class Jogo():
     pe.set_position(66,janela.height - pe.height - 33)
     pe2.set_position(janela.width-pe.width-66,janela.height - pe.height - 33)
 
-    fundo = GameImage("Assets/torcida2.jpg")
+    fundo = GameImage("Assets/fundo.png")
 
     jogador1 = Jogador(sprites1,450,0,True,"w","s","a","d","space")
     jogador2 = Jogador(sprites2,450,0,True,"up","down","left","right","enter")
 
-    plataforma = GameImage("Assets/plataformaPequena.png")
-    plataforma2 = GameImage("Assets/plataformaMedia.png")
-    plataforma3 = GameImage("Assets/plataformaPequena.png")
-    plataforma.set_position(150, janela.height - plataforma.height- 175)
-    plataforma2.set_position(640 - (plataforma2.width/2),janela.height - plataforma2.height - 325)
-    plataforma3.set_position(janela.width - 320, janela.height - plataforma3.height - 175)
-    
     plataformas= [GameImage("Assets/chao-plataformaPequena.png"),GameImage("Assets/chao-plataformaMedia.png"),GameImage("Assets/chao-plataformaPequena.png")]
-    plataformas[0].set_position(150,janela.height - plataforma.height- 175)
-    plataformas[1].set_position(640 - (plataforma2.width/2),janela.height - plataforma2.height - 325)
-    plataformas[2].set_position(janela.width - 320, janela.height - plataforma.height- 175)
+    plataformas[0].set_position(146,janela.height - 82- 175)
+    plataformas[1].set_position(640 - (408/2),janela.height - 84 - 327)
+    plataformas[2].set_position(janela.width - 320, janela.height - 82- 175)
     
     cont = 0
     fps = 0
@@ -83,9 +76,6 @@ class Jogo():
             janela.draw_text("Player 1 Wins", janela.width/2, janela.height/2, size=100, color=(0,0,255), font_name= 'Segoe UI', bold=True, italic=False)
         if jogador1.life == 0:
             janela.draw_text("Player 2 Wins", janela.width/2, janela.height/2, size=100, color=(255,0,0), font_name= 'Segoe UI', bold=True, italic=False)
-        plataforma.draw()
-        plataforma2.draw()
-        plataforma3.draw()
         for i in jogador1.sprites:
             jogador1.sprites[i].draw()
             jogador1.sprites[i].update()
