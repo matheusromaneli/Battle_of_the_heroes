@@ -1,0 +1,5 @@
+                Obrigado por jogar Battle of the Heroes!
+
+
+    Esse jogo foi desenvolvido a fins educacionais por
+            Leonardo Saracino e Matheus Romaneli.
