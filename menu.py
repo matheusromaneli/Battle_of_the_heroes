@@ -7,7 +7,6 @@ from creditos import *
 
 class Menu:
     # Inicialização
-
     janela = Window(1200,720)
     janela.set_title("Home")
     janela.set_background_color ((0,0,0))
@@ -23,13 +22,15 @@ class Menu:
     botaoCredito.set_position(480, 460)
 
     while True:
+
         if mouse.is_over_object(botaoJogar) and mouse.is_button_pressed(1):
             Jogo.init()
-            exit()
+
         if mouse.is_over_object(botaoSair) and mouse.is_button_pressed(1):
             exit()
+
         if mouse.is_over_object(botaoCredito) and mouse.is_button_pressed(1):
             Creditos.creditos()
-            exit()
+
         fundo.draw()
         janela.update()
