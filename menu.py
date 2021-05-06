@@ -5,10 +5,6 @@ from PPlay.mouse import *
 from jogo import *
 from creditos import *  
 
-
-
-          
-
 class Menu:
     # Inicialização
     janela = Window(1200,720)
