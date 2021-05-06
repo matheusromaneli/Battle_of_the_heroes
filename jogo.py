@@ -101,10 +101,6 @@ class Jogo():
                         seg = janela.time_elapsed()
                         rounds+=1
                         break
-                for i in jogador1.sprites:
-                    jogador1.sprites[i].draw()
-                    jogador1.sprites[i].update()
-                for i in jogador2.sprites:
-                    jogador2.sprites[i].draw()
-                    jogador2.sprites[i].update()
+                jogador1.draw()
+                jogador2.draw()
                 janela.update()
