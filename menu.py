@@ -3,7 +3,11 @@ from PPlay.gameimage import *
 from PPlay.sprite import *
 from PPlay.mouse import *
 from jogo import *
-from creditos import *
+from creditos import *  
+
+
+
+          
 
 class Menu:
     # Inicialização
