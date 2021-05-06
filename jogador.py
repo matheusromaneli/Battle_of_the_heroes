@@ -44,6 +44,12 @@ class Jogador():
         self.controleAtaque = ataque
         self.last = ''
         self.life = 5
+        self.life_bar = []
+        for i in range(self.life):
+            self.life_bar.append([GameImage("Assets/comvida.png"),GameImage("Assets/semvida.png")])
+        for i in range(len(self.life_bar)):
+            for j in self.life_bar[i]:
+                j.set_position(sprites['direita'].x-j.width/2 + i * j.width , sprites['direita'].y-j.height-5)
         self.attacking = False
         self.cooldownAtack = 0
         self.invulnerable = False
@@ -63,6 +69,9 @@ class Jogador():
         else:
             for i in self.sprites:
                 self.sprites[i].y -= self.velY * janela.delta_time()
+            for i in range(len(self.life_bar)):
+                for j in self.life_bar[i]:
+                    j.y -= self.velY * janela.delta_time()
             pe.y -= self.velY * janela.delta_time()
             self.velY-= 2000 * janela.delta_time()
            
@@ -81,7 +90,9 @@ class Jogador():
                 self.velY = 1000
                 for i in self.sprites:
                     self.sprites[i].y -= self.velY * janela.delta_time()
-
+                for i in range(len(self.life_bar)):
+                    for j in self.life_bar[i]:
+                        j.y -= self.velY * janela.delta_time()
                 pe.y -= self.velY * janela.delta_time()
             self.jump = False
         #Baixo
@@ -93,7 +104,11 @@ class Jogador():
 
             for i in self.sprites:
                 self.sprites[i].x -= self.velX * janela.delta_time()
-    
+
+            for i in range(len(self.life_bar)):
+                for j in self.life_bar[i]:
+                    j.x -= self.velX * janela.delta_time()
+
             pe.x -= self.velX * janela.delta_time()
             set_animation(0,1,self.last,self.sprites,self.attacking)
 
@@ -103,6 +118,9 @@ class Jogador():
 
             for i in self.sprites:
                 self.sprites[i].x += self.velX * janela.delta_time()
+            for i in range(len(self.life_bar)):
+                for j in self.life_bar[i]:
+                    j.x += self.velX * janela.delta_time()
 
             pe.x += self.velX * janela.delta_time()
             set_animation(1,0,self.last,self.sprites,self.attacking)
@@ -131,3 +149,15 @@ class Jogador():
         if not(self.invulnerable):
             self.life -= 1
         self.invulnerable = True
+
+    def draw(self):
+        for i in self.sprites:
+            self.sprites[i].draw()
+            self.sprites[i].update()
+        for i in range(len(self.life_bar)):
+            if i < self.life:
+                self.life_bar[i][0].draw()
+            else:
+                self.life_bar[i][1].draw()
+            
+
