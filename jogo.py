@@ -76,10 +76,6 @@ class Jogo():
                 janela.draw_text("Player 1 Wins", janela.width/2, janela.height/2, size=100, color=(0,0,255), font_name= 'Segoe UI', bold=True, italic=False)
             if jogador1.life == 0:
                 janela.draw_text("Player 2 Wins", janela.width/2, janela.height/2, size=100, color=(255,0,0), font_name= 'Segoe UI', bold=True, italic=False)
-            for i in jogador1.sprites:
-                jogador1.sprites[i].draw()
-                jogador1.sprites[i].update()
-            for i in jogador2.sprites:
-                jogador2.sprites[i].draw()
-                jogador2.sprites[i].update()
+            jogador1.draw()
+            jogador2.draw()
             janela.update()
