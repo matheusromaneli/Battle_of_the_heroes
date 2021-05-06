@@ -18,6 +18,8 @@ class Jogo():
         janela.set_title("Battle of the heroes")
         teclado = Window.get_keyboard()
         seg = janela.time_elapsed()
+        fundoVitoria1 = GameImage("Assets/Player 1 wins.png")
+        fundoVitoria2 = GameImage("Assets/Player 2 wins.png")
         while rounds <= 3:
             sprites1 = {'direita' : Sprite("Assets/Jogador1/Corrida-direita.png", 8), 'esquerda' :Sprite("Assets/Jogador1/Corrida-esquerda.png", 8), 'parado-direita' :Sprite("Assets/Jogador1/parado-direita.png",5),'parado-esquerda': Sprite("Assets/Jogador1/parado-esquerda.png",5), 'ataque-direita' :Sprite("Assets/Jogador1/Ataque-direita.png", 7), 'ataque-esquerda' :Sprite("Assets/Jogador1/ataque-esquerda.png", 7)}
             for i in sprites1:
@@ -84,7 +86,10 @@ class Jogo():
                 if jogador2.life == 0:
                     contround1 +=1
                     if contround1 == 2:
-                        janela.draw_text("Player 1 Wins", janela.width/2, janela.height/2, size=100, color=(0,0,255), font_name= 'Segoe UI', bold=True, italic=False)
+                        seg = janela.time_elapsed()
+                        while janela.time_elapsed() - seg < 2500:
+                            fundoVitoria1.draw()
+                            janela.update()
                         rounds = 4
                         break
                     else:
@@ -94,7 +99,10 @@ class Jogo():
                 if jogador1.life == 0:
                     contround2 +=1
                     if contround2 == 2:
-                        janela.draw_text("Player 2 Wins", janela.width/2, janela.height/2, size=100, color=(0,0,255), font_name= 'Segoe UI', bold=True, italic=False)
+                        seg = janela.time_elapsed()
+                        while janela.time_elapsed() - seg < 2500:
+                            fundoVitoria2.draw()
+                            janela.update()
                         rounds = 4
                         break
                     else:
