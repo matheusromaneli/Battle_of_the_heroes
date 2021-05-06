@@ -60,7 +60,7 @@ class Jogo():
                 if rounds > 1:
                     while janela.time_elapsed() - seg < 2500:
                         fundo.draw()
-                        janela.draw_text(f"Round{rounds}", 436, 200, size=100, color=(0,0,0), font_name= 'Segoe UI', bold=True, italic=False)
+                        janela.draw_text(f"Round {rounds}", 436, 200, size=100, color=(0,0,0), font_name= 'Segoe UI', bold=True, italic=False)
                         janela.update()
                         
                 ##Atualizaçao jogadores
@@ -80,7 +80,7 @@ class Jogo():
                     jogador1.invulnerable = False
                 ##Draws
                 fundo.draw()
-                janela.draw_text(f"FPS:{atual}", 10, 10, size=40, color=(255,255,255), font_name= 'Segoe UI', bold=False, italic=False)
+                janela.draw_text(f"FPS:{atual}", 10, 10, size=25, color=(255,255,255), font_name= 'Segoe UI', bold=False, italic=False)
                 if jogador2.life == 0:
                     contround1 +=1
                     if contround1 == 2:
