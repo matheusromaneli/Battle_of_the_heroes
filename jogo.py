@@ -59,7 +59,7 @@ class Jogo():
                     atual= fps
                     cont=0
                     fps=0
-                if rounds > 1:
+                if rounds >= 1:
                     while janela.time_elapsed() - seg < 2500:
                         fundo.draw()
                         janela.draw_text(f"Round {rounds}", 436, 200, size=100, color=(0,0,0), font_name= 'Segoe UI', bold=True, italic=False)

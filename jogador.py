@@ -62,7 +62,7 @@ class Jogador():
     def controles(self, janela, teclado, plataformas, pe):
         posInicial = self.sprites['direita'].x
         ##Física do pulo
-        if self.sprites['direita'].y > janela.height - self.sprites['direita'].height - 30:
+        if self.sprites['direita'].y >= janela.height - self.sprites['direita'].height - 30:
 
             self.jump = True  
 
