@@ -18,7 +18,7 @@ class Creditos:
         while True:
 
             if teclado.key_pressed("ESC"):
-                exit()
+                return
 
             janela.draw_text(texto,150, 80, size=50, color=(255,255,255), font_name= 'Segoe UI', bold=False, italic=False)
             janela.draw_text(texto2,80,300, size=50, color=(255,255,255), font_name= 'Segoe UI', bold=False, italic=False)
