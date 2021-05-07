@@ -16,6 +16,7 @@ class Jogo():
         contround2 =0
         janela = Window(1280,720)
         janela.set_title("Battle of the heroes")
+        janela.update()
         teclado = Window.get_keyboard()
         seg = janela.time_elapsed()
         fundoVitoria1 = GameImage("Assets/Player 1 wins.png")
