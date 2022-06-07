@@ -17,7 +17,7 @@ def set_animation(direita, esquerda, last, jogador, attacking):
         else:
             jogador['parado-direita'].unhide()
 
-def attack_animation(sprites, side):
+def attacanimation(sprites, side):
 
         for i in sprites:
             sprites[i].hide()
@@ -30,13 +30,28 @@ def attack_animation(sprites, side):
             sprites['ataque-esquerda'].unhide()
             sprites['ataque-esquerda'].play()
 
+def func_translate(x):
+    if(x == "True"):
+        return True
+    else:
+        return False
+
 class Jogador():
 
-    def __init__(self, sprites, velX, velY, jump, cima, baixo, esquerda,direita, ataque):
+    def __init__(self, id, conn, sprites, velX, velY, janela, jump, cima, baixo, esquerda,direita, ataque):
+        self.id = id
+        self.connection = conn
         self.sprites = sprites
         self.velX = velX
         self.velY = velY
         self.jump = jump
+        self.window = janela
+        self.pe = Sprite("Assets/pe_jogador.png", 1)
+        if(id == 1):
+            self.pe.set_position(66,janela.height - self.pe.height - 33)
+        else:
+            self.pe.set_position(janela.width-self.pe.width-66,janela.height - self.pe.height - 33)
+
         self.controleCima = cima
         self.controleBaixo = baixo
         self.controleEsquerda = esquerda
@@ -53,15 +68,38 @@ class Jogador():
         self.attacking = False
         self.cooldownAtack = 0
         self.invulnerable = False
-        
+        self.last_update = ""
+        self.canp = True
+
     def getcurr_animation(self):
         for i in self.sprites:
             if self.sprites[i].drawable:
                 return i
     
-    def controles(self, janela, teclado, plataformas, pe):
+    def controles(self, janela, input, plataformas):
+        if(self.id == 1):#caso seja o player jogando
+            sender = "".join([str(item) + "," for item in input])
+            # if(self.canp):
+            #     print(sender)
+            #     print(input)
+            if self.last_update != sender:
+                self.connection.send(str.encode("controle/" + sender + '\0'))
+                self.last_update = sender
+        else:
+            c_type,value = input.split("/")
+            if c_type == "controle":
+                value = value.split(",")
+                input = []
+                for item in value:
+                    input.append(func_translate(item))
+            else:
+                return
+        if(self.canp):
+            print(input)
+            self.canp = False
+
         posInicial = self.sprites['direita'].x
-        ##Física do pulo
+        ##FÃ­sica do pulo
         if self.sprites['direita'].y >= janela.height - self.sprites['direita'].height - 30:
 
             self.jump = True  
@@ -72,18 +110,18 @@ class Jogador():
             for i in range(len(self.life_bar)):
                 for j in self.life_bar[i]:
                     j.y -= self.velY * janela.delta_time()
-            pe.y -= self.velY * janela.delta_time()
+            self.pe.y -= self.velY * janela.delta_time()
             self.velY-= 2000 * janela.delta_time()
            
             for plataforma in plataformas:
                 #para de cair   
-                if (Collision.collided(pe, plataforma) and self.velY < 0) and not(teclado.key_pressed(self.controleBaixo)):
+                if (Collision.collided(self.pe, plataforma) and self.velY < 0) and not(input[self.controleBaixo]):
                     self.velY = 0
                     self.jump = True
 
         ##Controles
         #CIMA
-        if teclado.key_pressed(self.controleCima):
+        if input[self.controleCima]:
 
             if(self.jump):
 
@@ -93,13 +131,13 @@ class Jogador():
                 for i in range(len(self.life_bar)):
                     for j in self.life_bar[i]:
                         j.y -= self.velY * janela.delta_time()
-                pe.y -= self.velY * janela.delta_time()
+                self.pe.y -= self.velY * janela.delta_time()
             self.jump = False
         #Baixo
-        if teclado.key_pressed(self.controleBaixo):
+        if input[self.controleBaixo]:
             self.velY-= 2000 * janela.delta_time()
         #Esquerda    
-        if teclado.key_pressed(self.controleEsquerda) and self.sprites['direita'].x > 0:
+        if input[self.controleEsquerda] and self.sprites['direita'].x > 0:
             self.last = 'esquerda'
 
             for i in self.sprites:
@@ -109,11 +147,11 @@ class Jogador():
                 for j in self.life_bar[i]:
                     j.x -= self.velX * janela.delta_time()
 
-            pe.x -= self.velX * janela.delta_time()
+            self.pe.x -= self.velX * janela.delta_time()
             set_animation(0,1,self.last,self.sprites,self.attacking)
 
         #Direita
-        if teclado.key_pressed(self.controleDireita) and self.sprites['direita'].x < janela.width - self.sprites['direita'].width:
+        if input[self.controleDireita] and self.sprites['direita'].x < janela.width - self.sprites['direita'].width:
             self.last = 'direita'
 
             for i in self.sprites:
@@ -122,7 +160,7 @@ class Jogador():
                 for j in self.life_bar[i]:
                     j.x += self.velX * janela.delta_time()
 
-            pe.x += self.velX * janela.delta_time()
+            self.pe.x += self.velX * janela.delta_time()
             set_animation(1,0,self.last,self.sprites,self.attacking)
 
         #Parado
@@ -131,11 +169,11 @@ class Jogador():
             set_animation(0,0,self.last,self.sprites,self.attacking)
         
         #Ataque
-        if teclado.key_pressed(self.controleAtaque):
+        if input[self.controleAtaque]:
             
             if janela.time_elapsed() - self.cooldownAtack > 1000:
                 self.attacking = True           
-                attack_animation(self.sprites,self.last)
+                attacanimation(self.sprites,self.last)
                 self.cooldownAtack = janela.time_elapsed()
         if self.sprites['ataque-direita'].get_curr_frame() == self.sprites['ataque-direita'].get_final_frame()-1:
             self.attacking=False
@@ -159,5 +197,3 @@ class Jogador():
                 self.life_bar[i][0].draw()
             else:
                 self.life_bar[i][1].draw()
-            
-

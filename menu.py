@@ -4,6 +4,7 @@ from PPlay.sprite import *
 from PPlay.mouse import *
 from jogo import *
 from creditos import *  
+from Network import *
 
 class Menu:
     # Inicialização
@@ -21,12 +22,15 @@ class Menu:
     botaoSair.set_position(480, 340)
     botaoCredito.set_position(480, 460)
 
+    connection = Network()
     while True:
 
         if mouse.is_over_object(botaoJogar) and mouse.is_button_pressed(1):
-            Jogo.init()
+            connection.send(str.encode("play/ready"))
+            Jogo.init(connection)
 
         if mouse.is_over_object(botaoSair) and mouse.is_button_pressed(1):
+            connection.close()
             exit()
 
         if mouse.is_over_object(botaoCredito) and mouse.is_button_pressed(1):

@@ -19,6 +19,9 @@ class Keyboard():
 
         return False
     
+    def keys_pressed(self):
+        return pygame.key.get_pressed()
+
     """Shows the int code of the key"""
     def show_key_pressed(self):
         events = pygame.event.get()
