@@ -55,8 +55,8 @@ class Jogo():
             jogador1 = Jogador(1,connection,sprites1,450,0,janela,True,pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d,pygame.K_SPACE)
             jogador2 = Jogador(0,connection,sprites2,450,0,janela,True,K_w,K_s,K_a,K_d,K_space)
         else:
-            jogador1 = Jogador(0,connection,sprites1,450,0,janela,True,K_w,K_s,K_a,K_d,K_space)
             jogador2 = Jogador(1,connection,sprites2,450,0,janela,True,pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d,pygame.K_SPACE)
+            jogador1 = Jogador(0,connection,sprites1,450,0,janela,True,K_w,K_s,K_a,K_d,K_space)
         
         while True:
             ##FPS

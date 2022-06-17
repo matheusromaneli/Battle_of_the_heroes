@@ -47,7 +47,7 @@ class Jogador():
         self.jump = jump
         self.window = janela
         self.pe = Sprite("Assets/pe_jogador.png", 1)
-        if(id == 1):
+        if(conn.id == "player:1"):
             self.pe.set_position(66,janela.height - self.pe.height - 33)
         else:
             self.pe.set_position(janela.width-self.pe.width-66,janela.height - self.pe.height - 33)
@@ -110,7 +110,6 @@ class Jogador():
             for plataforma in plataformas:
                 #para de cair   
                 if (Collision.collided(self.pe, plataforma) and self.velY < 0) and not(input[self.controleBaixo]):
-                    print(Collision.collided(self.pe, plataforma))
                     self.velY = 0
                     self.jump = True
 
