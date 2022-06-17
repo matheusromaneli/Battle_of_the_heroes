@@ -79,9 +79,6 @@ class Jogador():
     def controles(self, janela, input, plataformas):
         if(self.id == 1):#caso seja o player jogando
             sender = "".join([str(item) + "," for item in input])
-            # if(self.canp):
-            #     print(sender)
-            #     print(input)
             if self.last_update != sender:
                 self.connection.send(str.encode("controle/" + sender + '\0'))
                 self.last_update = sender
@@ -94,9 +91,6 @@ class Jogador():
                     input.append(func_translate(item))
             else:
                 return
-        if(self.canp):
-            print(input)
-            self.canp = False
 
         posInicial = self.sprites['direita'].x
         ##FÃ­sica do pulo
@@ -116,6 +110,7 @@ class Jogador():
             for plataforma in plataformas:
                 #para de cair   
                 if (Collision.collided(self.pe, plataforma) and self.velY < 0) and not(input[self.controleBaixo]):
+                    print(Collision.collided(self.pe, plataforma))
                     self.velY = 0
                     self.jump = True
 
