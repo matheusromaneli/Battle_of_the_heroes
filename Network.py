@@ -7,7 +7,6 @@ class Network():
         while True:
             data = self.client.recv(4096)
             self.last_response = data.decode()
-            # print("recebeu: " + self.last_response)
             if(self.last_response.startswith("play")):
                 self.ready = True
 
