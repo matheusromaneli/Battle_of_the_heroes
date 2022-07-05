@@ -47,10 +47,7 @@ class Jogador():
         self.jump = jump
         self.window = janela
         self.pe = Sprite("Assets/pe_jogador.png", 1)
-        if(conn.id == "player:1"):
-            self.pe.set_position(66,janela.height - self.pe.height - 33)
-        else:
-            self.pe.set_position(janela.width-self.pe.width-66,janela.height - self.pe.height - 33)
+        self.pe.set_position(self.sprites['direita'].x + self.pe.width, self.sprites['direita'].y + self.sprites['direita'].height)
 
         self.controleCima = cima
         self.controleBaixo = baixo

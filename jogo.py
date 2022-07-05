@@ -55,8 +55,8 @@ class Jogo():
             jogador1 = Jogador(1,connection,sprites1,450,0,janela,True,pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d,pygame.K_SPACE)
             jogador2 = Jogador(0,connection,sprites2,450,0,janela,True,K_w,K_s,K_a,K_d,K_space)
         else:
-            jogador2 = Jogador(1,connection,sprites2,450,0,janela,True,pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d,pygame.K_SPACE)
             jogador1 = Jogador(0,connection,sprites1,450,0,janela,True,K_w,K_s,K_a,K_d,K_space)
+            jogador2 = Jogador(1,connection,sprites2,450,0,janela,True,pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d,pygame.K_SPACE)
         
         while True:
             ##FPS
@@ -66,7 +66,7 @@ class Jogo():
                 atual= fps
                 cont=0
                 fps=0
-            if rounds >= 1:
+            if rounds <= 5:
                 while not(connection.ready):
                     fundo.draw()
                     janela.draw_text(f"Round {rounds}", 436, 200, size=100, color=(0,0,0), font_name= 'Segoe UI', bold=True, italic=False)
@@ -106,7 +106,6 @@ class Jogo():
                 else:
                     seg = janela.time_elapsed()
                     rounds+=1
-                    break
             if jogador1.life == 0:
                 contround2 +=1
                 if contround2 == 2:
@@ -119,7 +118,8 @@ class Jogo():
                 else:
                     seg = janela.time_elapsed()
                     rounds+=1
-                    break
             jogador1.draw()
             jogador2.draw()
+            jogador1.pe.draw()
+            jogador2.pe.draw()
             janela.update()

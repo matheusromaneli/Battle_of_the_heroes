@@ -28,6 +28,7 @@ class Menu:
         if mouse.is_over_object(botaoJogar) and mouse.is_button_pressed(1):
             connection.send(str.encode("play/ready"))
             Jogo.init(connection)
+            connection.send(str.encode("play/end"))
 
         if mouse.is_over_object(botaoSair) and mouse.is_button_pressed(1):
             connection.close()

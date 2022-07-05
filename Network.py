@@ -8,7 +8,10 @@ class Network():
             data = self.client.recv(4096)
             self.last_response = data.decode()
             if(self.last_response.startswith("play")):
-                self.ready = True
+                if self.last_response.split("/")[1] == "ready":
+                    self.ready = True
+                else:
+                    self.ready = False
 
     def __init__(self):
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
