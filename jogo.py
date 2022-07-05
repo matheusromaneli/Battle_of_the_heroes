@@ -52,12 +52,11 @@ class Jogo():
         plataformas[1].set_position(436,janela.height - 411)
         plataformas[2].set_position(janela.width - 320, janela.height - 257)
         if(connection.id == "player:1"):
-            jogador1 = Jogador(1,connection,sprites1,450,0,janela,True,pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d,pygame.K_SPACE)
-            jogador2 = Jogador(0,connection,sprites2,450,0,janela,True,K_w,K_s,K_a,K_d,K_space)
+            jogador1 = Jogador(1,connection,sprites1,450,0,janela,True,pygame.K_UP,pygame.K_DOWN,pygame.K_LEFT,pygame.K_RIGHT,pygame.K_SPACE)
+            jogador2 = Jogador(0,connection,sprites2,450,0,janela,True,pygame.K_UP,pygame.K_DOWN,pygame.K_LEFT,pygame.K_RIGHT,pygame.K_SPACE)
         else:
-            jogador1 = Jogador(0,connection,sprites1,450,0,janela,True,K_w,K_s,K_a,K_d,K_space)
-            jogador2 = Jogador(1,connection,sprites2,450,0,janela,True,pygame.K_w,pygame.K_s,pygame.K_a,pygame.K_d,pygame.K_SPACE)
-        
+            jogador1 = Jogador(0,connection,sprites1,450,0,janela,True,pygame.K_UP,pygame.K_DOWN,pygame.K_LEFT,pygame.K_RIGHT,pygame.K_SPACE)
+            jogador2 = Jogador(1,connection,sprites2,450,0,janela,True,pygame.K_UP,pygame.K_DOWN,pygame.K_LEFT,pygame.K_RIGHT,pygame.K_SPACE)
         while True:
             ##FPS
             cont += janela.delta_time()
